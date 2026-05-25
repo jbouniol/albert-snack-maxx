@@ -132,7 +132,7 @@ struct HomeView: View {
                 )
                 .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
                 .padding(.horizontal, 18)
-                .padding(.bottom, 130)
+                .padding(.bottom, 20)
             }
         }
     }

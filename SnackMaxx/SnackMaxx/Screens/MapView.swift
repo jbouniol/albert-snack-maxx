@@ -15,6 +15,11 @@ struct MapView: View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 0) {
                 VStack(alignment: .leading, spacing: 4) {
+                    Image("LogoSnackMaxx")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 28)
+                        .padding(.bottom, 6)
                     Text("\(MockData.machines.count) DISTRIBUTEURS · PARIS")
                         .font(MxFont.head(10))
                         .tracking(1.6)
@@ -22,7 +27,7 @@ struct MapView: View {
                     MaxxHead(text: "Carte", size: 30)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal, 18).padding(.top, 60)
+                .padding(.horizontal, 18).padding(.top, 52)
 
                 stylizedMap
                     .frame(height: 280)
@@ -39,7 +44,7 @@ struct MapView: View {
                     }
                 }
                 .padding(.horizontal, 18)
-                .padding(.bottom, 130)
+                .padding(.bottom, 20)
             }
         }
     }

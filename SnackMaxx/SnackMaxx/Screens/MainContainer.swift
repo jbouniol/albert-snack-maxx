@@ -4,33 +4,39 @@ struct MainContainer: View {
     @EnvironmentObject var state: AppState
 
     var body: some View {
-        ZStack(alignment: .bottom) {
+        ZStack {
             MxBackground()
             content
-                .padding(.bottom, 90)
-            VStack(spacing: 0) {
-                Spacer()
+        }
+        // ── Tab bar via safeAreaInset — ScrollViews auto-inset, no manual bottom padding needed ──
+        .safeAreaInset(edge: .bottom, spacing: 0) {
+            Group {
                 if state.payTargetProduct == nil {
                     TabBar(active: Binding(
                         get: { state.tab },
                         set: { state.switchTo($0) }
                     ), onScan: { state.scanOpen = true })
-                    .transition(.move(edge: .bottom))
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
                 }
             }
+            .animation(.spring(response: 0.4, dampingFraction: 0.85), value: state.payTargetProduct == nil)
         }
         .ignoresSafeArea(.keyboard, edges: .bottom)
-        .overlay {
-            if let p = state.selectedProduct {
-                ProductDetailView(product: p)
-                    .transition(.move(edge: .bottom).combined(with: .opacity))
-                    .zIndex(80)
-            }
+        // ── Product detail — native sheet for swipe-to-dismiss ──
+        .sheet(item: Binding(
+            get: { state.selectedProduct },
+            set: { state.selectedProduct = $0 }
+        )) { p in
+            ProductDetailView(product: p)
+                .presentationDragIndicator(.visible)
+                .presentationDetents([.large])
+                .presentationCornerRadius(28)
         }
+        // ── Full-screen overlays — slide up from bottom ──
         .overlay {
             if let overlay = state.overlay {
                 overlayView(overlay)
-                    .transition(.move(edge: .trailing).combined(with: .opacity))
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
                     .zIndex(85)
             }
         }
@@ -44,28 +50,22 @@ struct MainContainer: View {
         .overlay {
             if let prod = state.payTargetProduct, let mach = state.payTargetMachine {
                 PayConfirmView(product: prod, machine: mach)
-                    .transition(.move(edge: .bottom))
+                    .transition(.move(edge: .bottom).combined(with: .opacity))
                     .zIndex(95)
             }
         }
-        .animation(.easeInOut(duration: 0.28), value: state.selectedProduct)
-        .animation(.easeInOut(duration: 0.28), value: state.overlay)
-        .animation(.easeInOut(duration: 0.20), value: state.scanOpen)
+        .animation(.spring(response: 0.42, dampingFraction: 0.88), value: state.overlay)
+        .animation(.spring(response: 0.28, dampingFraction: 0.85), value: state.scanOpen)
         .animation(.spring(response: 0.4, dampingFraction: 0.85), value: state.payTargetProduct)
     }
 
     @ViewBuilder private var content: some View {
         switch state.tab {
-        case .home:
-            HomeView()
-        case .snacks:
-            SnacksView()
-        case .scan:
-            HomeView() // scan tab handled by FAB
-        case .map:
-            MapView()
-        case .profile:
-            ProfileView()
+        case .home:    HomeView()
+        case .snacks:  SnacksView()
+        case .scan:    HomeView()
+        case .map:     MapView()
+        case .profile: ProfileView()
         }
     }
 

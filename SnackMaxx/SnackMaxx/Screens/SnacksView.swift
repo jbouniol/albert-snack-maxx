@@ -16,6 +16,13 @@ struct SnacksView: View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 0) {
                 VStack(alignment: .leading, spacing: 8) {
+                    // Logo
+                    Image("LogoSnackMaxx")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 28)
+                        .padding(.bottom, 6)
+
                     HStack(alignment: .bottom) {
                         VStack(alignment: .leading, spacing: 4) {
                             Text(state.machine.shortName.uppercased())
@@ -66,7 +73,7 @@ struct SnacksView: View {
                 }
                 .padding(.horizontal, 18)
                 .padding(.top, 12)
-                .padding(.bottom, 130)
+                .padding(.bottom, 20)
 
                 if items.isEmpty {
                     VStack(spacing: 4) {

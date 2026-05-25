@@ -111,7 +111,7 @@ struct ProductDetailView: View {
                         .font(MxFont.body(11))
                         .foregroundStyle(Mx.mute)
                         .frame(maxWidth: .infinity)
-                        .padding(.top, 8).padding(.bottom, 140)
+                        .padding(.top, 8).padding(.bottom, 40)
                 }
             }
         }

@@ -12,17 +12,24 @@ struct ProfileView: View {
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 0) {
-                HStack {
-                    MaxxHead(text: "Profil", size: 30)
-                    Spacer()
-                    ZStack {
-                        Circle().fill(Mx.card)
-                        MxIcon(name: .settings, size: 18, color: Mx.ink)
+                VStack(alignment: .leading, spacing: 0) {
+                    Image("LogoSnackMaxx")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(height: 28)
+                        .padding(.bottom, 10)
+                    HStack {
+                        MaxxHead(text: "Profil", size: 30)
+                        Spacer()
+                        ZStack {
+                            Circle().fill(Mx.card)
+                            MxIcon(name: .settings, size: 18, color: Mx.ink)
+                        }
+                        .frame(width: 40, height: 40)
+                        .overlay(Circle().stroke(Mx.line, lineWidth: 1))
                     }
-                    .frame(width: 40, height: 40)
-                    .overlay(Circle().stroke(Mx.line, lineWidth: 1))
                 }
-                .padding(.horizontal, 18).padding(.top, 60).padding(.bottom, 12)
+                .padding(.horizontal, 18).padding(.top, 52).padding(.bottom, 12)
 
                 identityCard
                     .padding(.horizontal, 18)
@@ -94,7 +101,7 @@ struct ProfileView: View {
                 SectionHeader(title: "Préférences")
                 preferencesList
                     .padding(.horizontal, 18)
-                    .padding(.bottom, 130)
+                    .padding(.bottom, 20)
             }
         }
     }
