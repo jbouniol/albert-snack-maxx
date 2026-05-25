@@ -1,0 +1,185 @@
+/* ───────────────────────────────────────────────────────────
+   SNACK MAXX — design tokens & utilities (v2: toned down)
+   ─────────────────────────────────────────────────────────── */
+
+:root {
+  /* Brand palette ripped from the logo */
+  --mx-orange-hot: #FF7A1F;
+  --mx-orange:     #FF5A14;
+  --mx-orange-deep:#E63B0A;
+  --mx-red:        #C7281D;
+  --mx-red-dark:   #8B1A0E;
+  --mx-blue:       #2BB4E8;
+  --mx-blue-deep:  #1376B8;
+  --mx-cream:      #FFF1D6;
+  --mx-cream-2:    #FFE4B0;
+  --mx-yellow:     #FFD23F;
+
+  --mx-black:      #15110E;
+  --mx-charcoal:   #2A211C;
+
+  /* Soft neutrals for the calmer surface */
+  --mx-ink:        #1A1410;
+  --mx-ink-2:      #4A3F35;
+  --mx-mute:       #8A7A6A;
+  --mx-line:       rgba(26,20,16,.10);
+  --mx-line-2:     rgba(26,20,16,.06);
+  --mx-paper:      #FBF5E8;
+  --mx-paper-2:    #F4ECDA;
+  --mx-card:       #FFFFFF;
+
+  /* Fonts */
+  --f-display: "Bowlby One", "Archivo Black", system-ui, sans-serif;
+  --f-head:    "Archivo Black", "Bowlby One", system-ui, sans-serif;
+  --f-body:    "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+
+  --r-card: 18px;
+  --r-pill: 999px;
+}
+
+/* MAXX (loud) intensity overrides — only kicks in when toggled */
+[data-intensity="maxx"] {
+  --mx-paper:      #15110E;
+  --mx-paper-2:    #2A211C;
+  --mx-card:       #2A211C;
+  --mx-ink:        #FFF1D6;
+  --mx-ink-2:      rgba(255,241,214,.75);
+  --mx-mute:       rgba(255,241,214,.55);
+  --mx-line:       rgba(255,241,214,.14);
+  --mx-line-2:     rgba(255,241,214,.08);
+}
+
+html, body { margin: 0; padding: 0; background: #1a1410; min-height: 100%; }
+body {
+  font-family: var(--f-body);
+  color: var(--mx-ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Stage */
+#stage {
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  padding: 40px 20px;
+  background:
+    radial-gradient(900px 500px at 80% -10%, rgba(255,90,20,.10), transparent 60%),
+    radial-gradient(700px 600px at -10% 110%, rgba(43,180,232,.10), transparent 60%),
+    #15110E;
+}
+
+/* ─── Chrome wordmark — kept for explicit hero use ───────── */
+.mx-chrome {
+  font-family: var(--f-display);
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: .005em;
+  background: linear-gradient(180deg,
+    #FFE9C9 0%, #FFC979 18%, #FF7A1F 45%,
+    #FF3D14 70%, #C7281D 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-stroke: 1.2px var(--mx-red-dark);
+  text-shadow: 0 2px 0 rgba(139,26,14,.25);
+  transform: skewX(-8deg);
+  display: inline-block;
+}
+.mx-chrome--blue {
+  background: linear-gradient(180deg, #DCF3FF 0%, #7BD7FF 25%, #2BB4E8 55%, #1376B8 100%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-stroke: 1.2px #0B4F7E;
+  text-shadow: 0 2px 0 rgba(11,79,126,.25);
+}
+
+/* Headline display, no chrome — just bold italic on solid color */
+.mx-head {
+  font-family: var(--f-display);
+  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: .005em;
+  color: var(--mx-ink);
+  transform: skewX(-6deg);
+  display: inline-block;
+  line-height: .95;
+}
+
+/* eyebrow micro-label */
+.mx-eyebrow {
+  font-family: var(--f-head);
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--mx-orange);
+}
+
+/* Card surface */
+.mx-card {
+  background: var(--mx-card);
+  border-radius: var(--r-card);
+  border: 1px solid var(--mx-line);
+  box-shadow: 0 1px 0 rgba(0,0,0,.02), 0 8px 22px rgba(0,0,0,.05);
+}
+[data-intensity="maxx"] .mx-card { box-shadow: 0 1px 0 rgba(255,255,255,.04) inset, 0 10px 24px rgba(0,0,0,.45); }
+
+/* Backgrounds (tweakable) */
+.mx-bg-cream {
+  background:
+    radial-gradient(1200px 500px at 50% -10%, rgba(255,122,31,.10), transparent 70%),
+    var(--mx-paper);
+}
+.mx-bg-grid {
+  background:
+    linear-gradient(rgba(255,90,20,.06) 1px, transparent 1px) 0 0 / 28px 28px,
+    linear-gradient(90deg, rgba(255,90,20,.06) 1px, transparent 1px) 0 0 / 28px 28px,
+    var(--mx-paper);
+}
+.mx-bg-blueprint {
+  background:
+    linear-gradient(rgba(43,180,232,.10) 1px, transparent 1px) 0 0 / 22px 22px,
+    linear-gradient(90deg, rgba(43,180,232,.10) 1px, transparent 1px) 0 0 / 22px 22px,
+    var(--mx-paper);
+}
+.mx-bg-speed {
+  background:
+    repeating-linear-gradient(110deg,
+      transparent 0 80px,
+      rgba(255,90,20,.05) 80px 84px,
+      transparent 84px 200px),
+    var(--mx-paper);
+}
+.mx-bg-solid {
+  background: var(--mx-paper);
+}
+
+/* Soft press feedback */
+.mx-press { transition: transform .12s ease, box-shadow .12s ease, background .12s ease; }
+.mx-press:active { transform: translateY(1px); }
+
+/* Hide system scrollbars inside phone */
+.mx-noscroll::-webkit-scrollbar { display: none; }
+.mx-noscroll { scrollbar-width: none; }
+
+/* Pill / chip */
+.mx-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 10px; border-radius: var(--r-pill);
+  font-family: var(--f-body); font-weight: 600; font-size: 11px;
+  border: 1px solid var(--mx-line);
+  background: var(--mx-card);
+  color: var(--mx-ink);
+  white-space: nowrap;
+}
+.mx-pill--ghost { background: transparent; }
+.mx-pill--ok    { background: #E8FAEE; color: #0F6E36; border-color: rgba(15,110,54,.18); }
+.mx-pill--warn  { background: #FFF4D6; color: #8a6300; border-color: rgba(138,99,0,.18); }
+.mx-pill--bad   { background: #FBE3E1; color: #8B1A0E; border-color: rgba(139,26,14,.18); }
+
+[data-intensity="maxx"] .mx-pill { background: rgba(255,241,214,.08); color: var(--mx-ink); border-color: rgba(255,241,214,.18); }
+[data-intensity="maxx"] .mx-pill--ok   { background: rgba(91,255,160,.12); color: #5BFFA0; border-color: rgba(91,255,160,.3); }
+[data-intensity="maxx"] .mx-pill--warn { background: rgba(255,210,63,.14); color: #FFD23F; border-color: rgba(255,210,63,.35); }
+[data-intensity="maxx"] .mx-pill--bad  { background: rgba(255,77,77,.14); color: #FF6E66; border-color: rgba(255,77,77,.35); }
+
+/* Dot indicators */
+.mx-dot { width: 8px; height: 8px; border-radius: 999px; background: #29C46B; }
+.mx-dot.warn { background: #FFB300; }
+.mx-dot.bad  { background: #C7281D; }
